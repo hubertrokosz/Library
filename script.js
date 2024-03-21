@@ -15,20 +15,38 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
 
     event.preventDefault();
 
+    document.getElementById('errorMessage').innerHTML = '';
+
+    let errorMessage = '';
+
     let title = document.getElementById("title").value;
     let author = document.getElementById("author").value;
     let read = document.querySelector("input[name='agreement']:checked").id;
 
     let book;
 
-    book = new Book(title, author, read);
-    myLibrary.push(book);
+    if (title.trim() === '') {
+        errorMessage += 'Username is required. <br>';
+    }
 
-    console.log(myLibrary);
+    if (author.trim() === '') {
+        errorMessage += 'Password is required. <br>';
+    }
 
-    displayLibrary();
+    if (errorMessage !== '') {
+        document.getElementById('errorMessage').innerHTML = errorMessage;
+    }
 
-    this.reset();
+    else {
+        book = new Book(title, author, read);
+        myLibrary.push(book);
+    
+        console.log(myLibrary);
+    
+        displayLibrary();
+    
+        this.reset();
+    }
 
 });
 
